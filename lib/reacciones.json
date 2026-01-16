@@ -1,0 +1,212 @@
+{
+  "angry": {
+    "self": ["`%from%` está molesto.", "`%from%` se enfada.", "`%from%` muestra su enojo."],
+    "target": ["`%from%` está molesto con `%who%`.", "`%from%` se enfada con `%who%`.", "`%from%` culpa a `%who%` con enojo."],
+    "query": "anime angry"
+  },
+  "bath": {
+    "self": ["`%from%` está tomando un baño.", "`%from%` se está bañando.", "`%from%` se limpia."],
+    "target": ["`%from%` está bañando a `%who%`.", "`%from%` limpia a `%who%`.", "`%from%` ayuda a `%who%` a bañarse."],
+    "query": "anime bath"
+  },
+  "bite": {
+    "self": ["`%from%` se mordió a sí mismo.", "`%from%` da un mordisco al aire."],
+    "target": ["`%from%` muerde a `%who%`.", "`%from%` le da un mordisco a `%who%`.", "`%from%` ataca a `%who%` con los dientes."],
+    "query": "anime bite"
+  },
+  "bleh": {
+    "self": ["`%from%` saca la lengua.", "`%from%` muestra la lengua."],
+    "target": ["`%from%` le saca la lengua a `%who%`.", "`%from%` burla a `%who%`.", "`%from%` le hace un gesto a `%who%`."],
+    "query": "anime bleh"
+  },
+  "blush": {
+    "self": ["`%from%` se sonroja.", "`%from%` muestra timidez.", "`%from%` se ruboriza."],
+    "target": ["`%from%` se sonroja por `%who%`.", "`%from%` se ruboriza por `%who%`.", "`%from%` se pone tímido por `%who%`."],
+    "query": "anime blush"
+  },
+  "bored": {
+    "self": ["`%from%` está aburrido.", "`%from%` bosteza."],
+    "target": ["`%from%` se aburre de `%who%`.", "`%from%` ignora a `%who%` por aburrimiento."],
+    "query": "anime bored"
+  },
+  "clap": {
+    "self": ["`%from%` aplaude.", "`%from%` se da una ovación."],
+    "target": ["`%from%` aplaude a `%who%`.", "`%from%` celebra con `%who%`.", "`%from%` reconoce el esfuerzo de `%who%`."],
+    "query": "anime clap"
+  },
+  "coffee": {
+    "self": ["`%from%` está tomando café.", "`%from%` necesita cafeína."],
+    "target": ["`%from%` toma café con `%who%`.", "`%from%` invita a `%who%` a un café."],
+    "query": "anime coffee"
+  },
+  "cry": {
+    "self": ["`%from%` está llorando.", "`%from%` derrama lágrimas."],
+    "target": ["`%from%` llora por `%who%`.", "`%from%` busca consuelo en `%who%`."],
+    "query": "anime cry"
+  },
+  "cuddle": {
+    "self": ["`%from%` se acurrucó solo.", "`%from%` se abraza a sí mismo."],
+    "target": ["`%from%` se acurrucó con `%who%`.", "`%from%` busca el calor de `%who%`."],
+    "query": "anime cuddle"
+  },
+  "dance": {
+    "self": ["`%from%` está bailando.", "`%from%` se mueve al ritmo."],
+    "target": ["`%from%` está bailando con `%who%`.", "`%from%` y `%who%` bailan juntos."],
+    "query": "anime dance"
+  },
+  "drunk": {
+    "self": ["`%from%` está borracho.", "`%from%` ve doble."],
+    "target": ["`%from%` está borracho con `%who%`.", "`%from%` y `%who%` están ebrios."],
+    "query": "anime drunk"
+  },
+  "eat": {
+    "self": ["`%from%` está comiendo.", "`%from%` disfruta de la comida."],
+    "target": ["`%from%` está comiendo con `%who%`.", "`%from%` comparte su comida con `%who%`."],
+    "query": "anime eat"
+  },
+  "facepalm": {
+    "self": ["`%from%` se da una palmada en la cara.", "`%from%` se frustra."],
+    "target": ["`%from%` se da una palmada en la cara por `%who%`.", "`%from%` no puede creer lo que hizo `%who%`."],
+    "query": "anime facepalm"
+  },
+  "happy": {
+    "self": ["`%from%` está feliz.", "`%from%` sonríe."],
+    "target": ["`%from%` está feliz por `%who%`.", "`%from%` le sonríe a `%who%`."],
+    "query": "anime happy"
+  },
+  "hug": {
+    "self": ["`%from%` se abraza a sí mismo.", "`%from%` busca consuelo."],
+    "target": ["`%from%` abraza a `%who%`.", "`%from%` le da un gran abrazo a `%who%`."],
+    "query": "anime hug"
+  },
+  "kill": {
+    "self": ["`%from%` se 'mata' de vergüenza.", "`%from%` se rinde."],
+    "target": ["`%from%` 'mata' a `%who%`.", "`%from%` derrota a `%who%`."],
+    "query": "anime kill"
+  },
+  "kiss": {
+    "self": ["`%from%` se besa a sí mismo.", "`%from%` lanza un beso al aire."],
+    "target": ["`%from%` besa a `%who%`.", "`%from%` le da un beso a `%who%`."],
+    "query": "anime kiss"
+  },
+  "laugh": {
+    "self": ["`%from%` se ríe a carcajadas.", "`%from%` se divierte."],
+    "target": ["`%from%` se ríe de `%who%`.", "`%from%` encuentra gracioso a `%who%`."],
+    "query": "anime laugh"
+  },
+  "lick": {
+    "self": ["`%from%` se lame.", "`%from%` se limpia."],
+    "target": ["`%from%` lame a `%who%`.", "`%from%` le da un lametón a `%who%`."],
+    "query": "anime lick"
+  },
+  "slap": {
+    "self": ["`%from%` se abofetea.", "`%from%` se da una cachetada."],
+    "target": ["`%from%` abofetea a `%who%`.", "`%from%` le dio una bofetada a `%who%`."],
+    "query": "anime slap"
+  },
+  "sleep": {
+    "self": ["`%from%` está durmiendo.", "`%from%` toma una siesta."],
+    "target": ["`%from%` duerme junto a `%who%`.", "`%from%` y `%who%` descansan juntos."],
+    "query": "anime sleep"
+  },
+  "smoke": {
+    "self": ["`%from%` está fumando.", "`%from%` exhala humo."],
+    "target": ["`%from%` está fumando con `%who%`.", "`%from%` comparte un cigarro con `%who%`."],
+    "query": "anime smoke"
+  },
+  "spit": {
+    "self": ["`%from%` escupe.", "`%from%` se limpia."],
+    "target": ["`%from%` escupe a `%who%`.", "`%from%` le escupe a `%who%`."],
+    "query": "anime spit"
+  },
+  "think": {
+    "self": ["`%from%` está pensando.", "`%from%` reflexiona."],
+    "target": ["`%from%` está pensando en `%who%`.", "`%from%` reflexiona sobre `%who%`."],
+    "query": "anime think"
+  },
+  "love": {
+    "self": ["`%from%` se ama a sí mismo.", "`%from%` muestra amor propio."],
+    "target": ["`%from%` está enamorado de `%who%`.", "`%from%` ama a `%who%`."],
+    "query": "anime love"
+  },
+  "pat": {
+    "self": ["`%from%` se da una palmadita.", "`%from%` se auto-felicita."],
+    "target": ["`%from%` acaricia a `%who%`.", "`%from%` le da una palmadita a `%who%`."],
+    "query": "anime pat"
+  },
+  "poke": {
+    "self": ["`%from%` se da un toque.", "`%from%` se molesta solo."],
+    "target": ["`%from%` pica a `%who%`.", "`%from%` molesta a `%who%`."],
+    "query": "anime poke"
+  },
+  "pout": {
+    "self": ["`%from%` hace pucheros.", "`%from%` se enfurruña."],
+    "target": ["`%from%` le hace pucheros a `%who%`.", "`%from%` está disgustado por `%who%`."],
+    "query": "anime pout"
+  },
+  "punch": {
+    "self": ["`%from%` se golpea a sí mismo.", "`%from%` golpea al aire."],
+    "target": ["`%from%` golpea a `%who%`.", "`%from%` le da un puñetazo a `%who%`."],
+    "query": "anime punch"
+  },
+  "run": {
+    "self": ["`%from%` está corriendo.", "`%from%` huye."],
+    "target": ["`%from%` corre con `%who%`.", "`%from%` persigue a `%who%`."],
+    "query": "anime run"
+  },
+  "sad": {
+    "self": ["`%from%` está triste.", "`%from%` se siente melancólico."],
+    "target": ["`%from%` está triste por `%who%`.", "`%from%` necesita a `%who%`."],
+    "query": "anime sad"
+  },
+  "scared": {
+    "self": ["`%from%` se asusta.", "`%from%` está aterrorizado."],
+    "target": ["`%from%` está asustado de `%who%`.", "`%from%` huye de `%who%`."],
+    "query": "anime scared"
+  },
+  "seduce": {
+    "self": ["`%from%` se seduce a sí mismo.", "`%from%` practica sus movimientos."],
+    "target": ["`%from%` intenta seducir a `%who%`.", "`%from%` le lanza una mirada a `%who%`."],
+    "query": "anime seduce"
+  },
+  "shy": {
+    "self": ["`%from%` está tímido.", "`%from%` se pone rojo."],
+    "target": ["`%from%` se pone tímido frente a `%who%`.", "`%from%` baja la mirada ante `%who%`."],
+    "query": "anime shy"
+  },
+  "walk": {
+    "self": ["`%from%` está caminando.", "`%from%` sale a pasear."],
+    "target": ["`%from%` está caminando con `%who%`.", "`%from%` pasea junto a `%who%`."],
+    "query": "anime walk"
+  },
+  "wink": {
+    "self": ["`%from%` se guiña el ojo.", "`%from%` es coqueto."],
+    "target": ["`%from%` le guiña el ojo a `%who%`.", "`%from%` le lanza un guiño a `%who%`."],
+    "query": "anime wink"
+  },
+  "smile": {
+    "self": ["`%from%` está sonriendo.", "`%from%` muestra su felicidad."],
+    "target": ["`%from%` le sonríe a `%who%`.", "`%from%` comparte una sonrisa con `%who%`."],
+    "query": "anime smile"
+  },
+  "highfive": {
+    "self": ["`%from%` se choca los cinco solo.", "`%from%` se da un \"buen trabajo\"."],
+    "target": ["`%from%` choca los cinco con `%who%`.", "`%from%` celebra con `%who%`."],
+    "query": "anime highfive"
+  },
+  "wave": {
+    "self": ["`%from%` saluda.", "`%from%` levanta la mano."],
+    "target": ["`%from%` saluda a `%who%`.", "`%from%` le dice hola a `%who%`."],
+    "query": "anime wave"
+  },
+  "handhold": {
+    "self": ["`%from%` se agarra la mano.", "`%from%` busca su propio apoyo."],
+    "target": ["`%from%` agarra la mano de `%who%`.", "`%from%` camina de la mano con `%who%`."],
+    "query": "anime handhold"
+  },
+  "bullying": {
+    "self": ["`%from%` se auto-critica.", "`%from%` es duro consigo mismo."],
+    "target": ["`%from%` molesta a `%who%`.", "`%from%` le hace bullying a `%who%`."],
+    "query": "anime bullying"
+  }
+}
