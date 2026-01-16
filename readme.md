@@ -13,7 +13,7 @@
 Delta es un bot multifuncional para WhatsApp diseñado para ofrecer entretenimiento, gestión de grupos y herramientas avanzadas con una interfaz elegante ꕤ
 
 * **Creadora:** [Nexy](https://github.com/NexyLove) ✰
-* **Tecnología:** Node.js + Baileys
+* **Node.js + Baileys**
 * **Prefijo:** `7`
 
 ---
