@@ -1,6 +1,6 @@
-<p align="center">
+<b align="center">
   <h1>STAR DELTA</h1>
-</p>
+</b>
 
 <p align="center">
   <img src="https://avatars.githubusercontent.com/u/249682299?v=4" alt="Delta Bot" width="500">
@@ -8,7 +8,7 @@
 
 ---
 
-## ✧・ﾟ:* ɪɴғᴏʀᴍᴀᴄɪóɴ ᴅᴇʟ ʙᴏᴛ *:・ﾟ✧
+## ˚₊‧꒰ა ɪɴғᴏ ʙᴏᴛ ໒꒱ ‧₊˚
 
 Delta es un bot multifuncional para WhatsApp diseñado para ofrecer entretenimiento, gestión de grupos y herramientas avanzadas con una interfaz elegante ꕤ
 
@@ -87,5 +87,5 @@ Si tienes dudas o quieres apoyar el proyecto:
  * GitHub: NexyLove ✰
  * Proyecto: Delta-WaBot Repo
 <p align="center">
-<b>・ﾟ: ᴇsᴛᴇ ʙᴏᴛ ғᴜᴇ ᴅᴇsᴀʀʀᴏʟʟᴀᴅᴏ ᴘᴏʀ ɴᴇxʏ :・ﾟ</b>
+<b>ᴇsᴛᴇ ʙᴏᴛ ғᴜᴇ ᴅᴇsᴀʀʀᴏʟʟᴀᴅᴏ ᴘᴏʀ ɴᴇxʏ</b>
 </p>
