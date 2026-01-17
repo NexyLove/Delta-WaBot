@@ -7,8 +7,8 @@ global.owner = [
   ['9170443047164']
 ]
 
-global.dev = 'Nexy Love'
-global.botName = 'Star Delta'
+global.dev = 'Nexy 7z'
+global.botName = 'STAR DELTA'
 global.prefix = ['7']
 global.packname = 'Delta Sticker By'
 
@@ -18,13 +18,13 @@ global.vlink = 'https://wa.link/3bben7'
 // -------------------------------
 
 // --- CONFIGURACIÓN DE ECONOMÍA GLOBAL ---
-global.currency = 'Stars' 
+global.currency = 'Nekoins' 
 // ----------------------------------------
 
-global.banner = 'https://cdn.russellxz.click/797976f0.jpg'
+global.banner = 'https://nexy-ar7z.b-cdn.net/storage/0e261f75.jpg'
 
-global.wait = '*✰ Aguarde un momento...*'
-global.error = '*✰ Ocurrió un error inesperado.*'
+global.wait = '*Aguarde un momento...*'
+global.error = '*Ocurrió un error inesperado.*'
 global.isOwnerMsg = '*✰ Este comando solo puede ser utilizado por el Dueño.*'
 global.isAdminMsg = '✰ Este comando solo puede ser utilizado por los *administradores*.'
 global.isBotAdminMsg = '✰ Necesito ser *administrador* para ejecutar esta acción.'
