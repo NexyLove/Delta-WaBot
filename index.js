@@ -21,7 +21,6 @@ import axios from 'axios'
 import * as cheerio from 'cheerio'
 import { exec } from 'child_process'
 import { promisify } from 'util'
-import { raceWithFallback, cleanFileName, getBufferFromUrl, colorize } from './lib/ytdl.js'
 import yts from 'yt-search'
 import { Sticker, StickerTypes } from 'wa-sticker-formatter'
 import printLog from './lib/console.js'
@@ -2456,7 +2455,8 @@ case 'ytdl2': case 'mp4': case 'ytv': case 'play2': case 'ytmp4': {
     if (!text) return reply(`ꕤ Por favor, ingresa el nombre o link de YouTube.`)
     
     const isAudio = ['mp3', 'yta', 'ytaudio', 'play', 'ytdl', 'ytmp3'].includes(command)
-    const cacheKey = `yt:${isAudio ? 'audio' : 'video'}:${text.toLowerCase()}`
+    const type = isAudio ? 'mp3' : 'mp4'
+    const cacheKey = `yt:${type}:${text.toLowerCase()}`
     
     if (!global.ytCache) global.ytCache = {}
     
@@ -2465,18 +2465,16 @@ case 'ytdl2': case 'mp4': case 'ytv': case 'play2': case 'ytmp4': {
         await conn.sendMessage(from, { image: { url: cached.thumbnail }, caption: cached.infoText }, { quoted: msg })
         
         if (isAudio) {
-            
             await conn.sendMessage(from, { 
-                audio: cached.audioData, 
+                audio: cached.media, 
                 mimetype: 'audio/mpeg',
                 ptt: false
             }, { quoted: msg })
         } else {
             await conn.sendMessage(from, { 
-                video: { url: cached.download }, 
+                video: cached.media, 
                 caption: `> ✰ ${cached.title}`, 
-                mimetype: 'video/mp4', 
-                fileName: `${cleanFileName(cached.title)}.mp4` 
+                mimetype: 'video/mp4'
             }, { quoted: msg })
         }
         return
@@ -2487,111 +2485,49 @@ case 'ytdl2': case 'mp4': case 'ytv': case 'play2': case 'ytmp4': {
         const video = search.videos[0]
         if (!video) return reply(`✰ No se encontraron resultados.`)
         
-        let infoText = `*✧ ‧₊˚* \`YOUTUBE ${isAudio ? 'AUDIO' : 'VIDEO'}\` *୧ֹ˖ ⑅ ࣪⊹*\n`
+        let infoText = `*✧ ‧₊˚* \`YOUTUBE ${type.toUpperCase()}\` *୧ֹ˖ ⑅ ࣪⊹*\n`
         infoText += `⊹₊ ˚‧︵‿₊୨୧₊‿︵‧ ˚ ₊⊹\n`
         infoText += `› ✰ *Título:* ${video.title}\n`
         infoText += `› ✿ *Canal:* ${video.author.name}\n`
         infoText += `› ✦ *Duración:* ${video.timestamp}\n`
-        if (isAudio) infoText += `› ❀ *Calidad:* 128kbps\n`
         infoText += `› ꕤ *Vistas:* ${formatViews(video.views)}\n`
         infoText += `› ❖ *Link:* _${video.url}_`
         
         await conn.sendMessage(from, { image: { url: video.thumbnail }, caption: infoText }, { quoted: msg })
-        
-        let result
-        let attempts = 0
-        const maxAttempts = 3
 
-        while (attempts < maxAttempts) {
-            result = await raceWithFallback(video.url, isAudio, video.title)
-            if (result && result.download && !String(result.download).includes('Processing')) {
-                break
-            }
-            attempts++
-            if (attempts < maxAttempts) await new Promise(resolve => setTimeout(resolve, 3500))
+        const apiUrl = `https://api-nexy.ultraplus.click/api/dl/ytdlv3?url=${encodeURIComponent(video.url)}&type=${type}`
+        const { data } = await axios.get(apiUrl)
+
+        if (!data.status || !data.result || !data.result.download) {
+            return reply(`✰ Error al obtener el enlace de descarga.`)
         }
 
-        if (!result || !result.download || String(result.download).includes('Processing')) {
-            return reply(`✰ El servidor sigue procesando el archivo. Por favor, intenta de nuevo el comando en un momento.`)
+        const response = await axios.get(data.result.download, { responseType: 'arraybuffer' })
+        const mediaBuffer = Buffer.from(response.data)
+
+        global.ytCache[cacheKey] = {
+            timestamp: Date.now(),
+            thumbnail: video.thumbnail,
+            infoText: infoText,
+            media: mediaBuffer,
+            title: video.title
         }
 
         if (isAudio) {
-            const response = await axios.get(result.download, { responseType: 'arraybuffer' })
-            const audioData = Buffer.from(response.data)
-            
-            
-            const tempDir = './temp'
-            if (!existsSync(tempDir)) mkdirSync(tempDir, { recursive: true })
-
-            const inputFile = join(tempDir, `${Date.now()}_input.mp4`)
-            const outputFile = join(tempDir, `${Date.now()}_output.mp3`)
-            
-            writeFileSync(inputFile, audioData)
-            
-            
-            try {
-                await execPromise(`ffmpeg -i "${inputFile}" -vn -c:a libmp3lame -b:a 128k -ar 44100 -ac 2 "${outputFile}" -y`)
-                
-                if (!existsSync(outputFile)) {
-                    
-                    await conn.sendMessage(from, { 
-                        audio: audioData, 
-                        mimetype: 'audio/mpeg',
-                        ptt: false
-                    }, { quoted: msg })
-                } else {
-                    const processedAudio = readFileSync(outputFile)
-                    
-                    global.ytCache[cacheKey] = {
-                        timestamp: Date.now(),
-                        thumbnail: video.thumbnail,
-                        infoText: infoText,
-                        audioData: processedAudio,
-                        title: video.title,
-                        download: result.download
-                    }
-                    
-                    await conn.sendMessage(from, { 
-                        audio: processedAudio, 
-                        mimetype: 'audio/mpeg',
-                        ptt: false
-                    }, { quoted: msg })
-                    
-            
-                    if (existsSync(inputFile)) unlinkSync(inputFile)
-                    if (existsSync(outputFile)) unlinkSync(outputFile)
-                }
-                
-            } catch (e) {
-                console.error('Error en conversión:', e)
-         
-                await conn.sendMessage(from, { 
-                    audio: audioData, 
-                    mimetype: 'audio/mpeg',
-                    ptt: false
-                }, { quoted: msg })
-                
-                if (existsSync(inputFile)) unlinkSync(inputFile)
-                if (existsSync(outputFile)) unlinkSync(outputFile)
-            }
-            
-        } else {
-         
-            global.ytCache[cacheKey] = {
-                timestamp: Date.now(),
-                thumbnail: video.thumbnail,
-                infoText: infoText,
-                title: video.title,
-                download: result.download
-            }
-            
             await conn.sendMessage(from, { 
-                video: { url: result.download }, 
+                audio: mediaBuffer, 
+                mimetype: 'audio/mpeg',
+                ptt: false
+            }, { quoted: msg })
+        } else {
+            await conn.sendMessage(from, { 
+                video: mediaBuffer, 
                 caption: `> ✰ ${video.title}`, 
                 mimetype: 'video/mp4', 
-                fileName: `${cleanFileName(video.title)}.mp4` 
+                fileName: `${video.title}.mp4` 
             }, { quoted: msg })
         }
+
     } catch (e) {
         console.error(e)
         reply(`⚠︎ Error: ${e.message}`)
