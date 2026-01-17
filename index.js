@@ -565,7 +565,7 @@ let expRequired = userStats.level * 500
             `‧₊˚✰ *${usedPrefix}gemini • ${usedPrefix}deepseek*`,
             `> ⋆.˚ Pregunta a la inteligencia artificial ˚.⋆`,
             `‧₊˚✰ *${usedPrefix}tomp3*`,
-            `> ⋆.˚ Convierte video a audio ˚.⋆`,
+            `> ⋆.˚ Convierte video a audio ˚.⋆`
         ]),
         
         grupos: crearSeccion('GRUPOS', [
