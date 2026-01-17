@@ -5,29 +5,19 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "install:canvas": "npm install canvas@3.2.1 --build-from-source"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NexyLove/Delta-WaBot"
   },
   "dependencies": {
-    "@hapi/boom": "^10.0.1",
     "@whiskeysockets/baileys": "7.0.0-rc.9",
     "axios": "^1.6.0",
-    "canvas": "3.2.1",
     "chalk": "4.1.2",
     "cheerio": "^1.1.2",
-    "fluent-ffmpeg": "^2.1.2",
-    "lodash": "^4.17.21",
-    "lowdb": "^3.0.0",
-    "node-cache": "^5.1.2",
-    "pino": "^8.16.0",
-    "wa-sticker-formatter": "^4.4.4",
-    "yt-search": "^2.10.4",
-    "twemoji": "^14.0.2",
     "qrcode-terminal": "^0.12.0",
+    "pino": "^8.16.0",
     "moment": "^2.29.4",
     "form-data": "^4.0.0"
   },
