@@ -347,8 +347,10 @@ async function processMessage(m, msgId) {
                 lastmine: 0,
                 lastcofre: 0,
                 lastAdventure: 0,
-                lastDungeon: 0
-            }
+                lastDungeon: 0,
+                stickerPack: '',
+                stickerAuthor: ''
+    }
             global.db.write()
         }
 
@@ -374,7 +376,9 @@ async function processMessage(m, msgId) {
             if (!('lastcofre' in user)) user.lastcofre = 0
             if (!('lastAdventure' in user)) user.lastAdventure = 0
             if (!('lastDungeon' in user)) user.lastDungeon = 0
-        }
+            if (!('stickerPack' in user)) user.stickerPack = ''
+            if (!('stickerAuthor' in user)) user.stickerAuthor = ''
+}
 
         if (isGroup) {
             if (!global.db.data.chats) global.db.data.chats = {}
@@ -544,6 +548,12 @@ let expRequired = userStats.level * 500
         utilidades: crearSeccion('UTILIDADES', [
             `‧₊˚✰ *${usedPrefix}s • ${usedPrefix}sticker*`,
             `> ⋆.˚ Crea sticker de imagen/video ˚.⋆`,
+            `‧₊˚✰ *${usedPrefix}brat*`,
+            `> ⋆.˚ Texto a sticker ˚.⋆`,
+            `‧₊˚✰ *${usedPrefix}bratvid*`,
+            `> ⋆.˚ Convierte texto a sticker animado˚.⋆`,
+            `‧₊˚✰ *${usedPrefix}setmeta*`,
+            `> ⋆.˚ Cambia nombre de pack y autor de sticker ˚.⋆`,
             `‧₊˚✰ *${usedPrefix}cal • ${usedPrefix}calcular*`,
             `> ⋆.˚ Calculadora matemática ˚.⋆`,
             `‧₊˚✰ *${usedPrefix}toimg • ${usedPrefix}img*`,
@@ -555,7 +565,7 @@ let expRequired = userStats.level * 500
             `‧₊˚✰ *${usedPrefix}gemini • ${usedPrefix}deepseek*`,
             `> ⋆.˚ Pregunta a la inteligencia artificial ˚.⋆`,
             `‧₊˚✰ *${usedPrefix}tomp3*`,
-            `> ⋆.˚ Convierte video a audio ˚.⋆`
+            `> ⋆.˚ Convierte video a audio ˚.⋆`,
         ]),
         
         grupos: crearSeccion('GRUPOS', [
@@ -765,10 +775,6 @@ let expRequired = userStats.level * 500
 
 case 'test':
 reply('ola')
-break
-                        
-                       case 'menus':
-reply('⊹₊ ˚‧︵‿₊୨୧₊‿︵‧ ˚ ₊⊹\n *LISTA DE MENUS*\n\n *📚 Categorías disponibles:*\n• `' + usedPrefix + 'help info` - Información del bot\n• `' + usedPrefix + 'help descargas` - Comandos de descargas\n• `' + usedPrefix + 'help utilidades` - Herramientas útiles\n• `' + usedPrefix + 'help grupos` - Comandos para grupos\n• `' + usedPrefix + 'help perfil` - Comandos de perfil\n• `' + usedPrefix + 'help economia` - Sistema económico\n• `' + usedPrefix + 'help anime` - Reacciones anime\n• `' + usedPrefix + 'help` - Menu completo')
 break
                         
                         case 'code':
@@ -2274,14 +2280,17 @@ case 'brat': {
         const { makeBrat } = await import('./lib/brat.js');
         const buffer = await makeBrat(text);
 
-        const sticker = new Sticker(buffer, {
-            pack: global.packname,
-            author: global.dev,
-            type: StickerTypes.FULL,
-            categories: ['🤩', '🎉'],
-            quality: 70,
-            background: 'transparent'
-        });
+        const userPack = global.db.data.users[sender]?.stickerPack || global.packname
+const userAuthor = global.db.data.users[sender]?.stickerAuthor || global.dev
+
+const sticker = new Sticker(buffer, {
+    pack: userPack,
+    author: userAuthor,
+    type: StickerTypes.FULL,
+    categories: ['🤩', '🎉'],
+    quality: 70,
+    background: 'transparent'
+});
 
         const stickerBuffer = await sticker.toBuffer();
         await conn.sendMessage(from, { sticker: stickerBuffer }, { quoted: msg });
@@ -2298,17 +2307,28 @@ case 'bratvid': {
         const { makeBratVid } = await import('./lib/bratvid.js');
         const id = Date.now().toString();
         const webpPath = await makeBratVid(text, id);
+        const buffer = fs.readFileSync(webpPath);
 
-        await conn.sendMessage(from, { 
-            sticker: fs.readFileSync(webpPath) 
-        }, { quoted: msg });
+        const userPack = global.db.data.users[sender]?.stickerPack || global.packname
+        const userAuthor = global.db.data.users[sender]?.stickerAuthor || global.dev
+
+        const sticker = new Sticker(buffer, {
+            pack: userPack,
+            author: userAuthor,
+            type: StickerTypes.FULL,
+            quality: 70
+        });
+
+        const stickerBuffer = await sticker.toBuffer();
+        await conn.sendMessage(from, { sticker: stickerBuffer }, { quoted: msg });
 
         fs.unlinkSync(webpPath);
     } catch (e) {
         reply(`⚠︎ Error: ${e.message}`);
     }
 }
-break                 
+break
+                 
                         case 's': case 'sticker': {
     try {
         const quoted = msg.message?.extendedTextMessage?.contextInfo?.quotedMessage
@@ -2336,20 +2356,48 @@ break
             { logger: P({ level: 'silent' }), reuploadRequest: conn.updateMediaMessage }
         )
 
-        const sticker = new Sticker(buffer, {
-            pack: global.packname,
-            author: global.dev,
-            type: StickerTypes.FULL,
-            categories: ['🤩', '🎉'],
-            quality: 70,
-            background: 'transparent'
-        })
+        const userPack = global.db.data.users[sender]?.stickerPack || global.packname
+const userAuthor = global.db.data.users[sender]?.stickerAuthor || global.dev
+
+const sticker = new Sticker(buffer, {
+    pack: userPack,
+    author: userAuthor,
+    type: StickerTypes.FULL,
+    categories: ['🤩', '🎉'],
+    quality: 80,
+    background: 'transparent'
+})
 
         const stickerBuffer = await sticker.toBuffer()
         await conn.sendMessage(from, { sticker: stickerBuffer }, { quoted: msg })
 
     } catch (e) {
         reply(`⚠︎ Error: ${e.message}`)
+    }
+}
+break
+
+                case 'setmeta': {
+    if (!text) return reply(`₊˚✰ *Uso:* ${usedPrefix}setmeta <pack> / <author>\n‧₊˚✰ *Ejemplo:* ${usedPrefix}setmeta ${global.db.data.users[sender]?.stickerPack || global.packname} / ${global.db.data.users[sender]?.stickerAuthor || global.dev}`)
+    
+    const parts = text.split(/[/|•]/).map(p => p.trim())
+    
+    if (parts.length >= 2) {
+        const [pack, author] = parts
+        
+        if (!pack || !author) return reply('ꕤ Ambos campos son requeridos.')
+
+        if (!global.db.data.users[sender]) {
+            global.db.data.users[sender] = {}
+        }
+        
+        global.db.data.users[sender].stickerPack = pack.substring(0, 30)
+        global.db.data.users[sender].stickerAuthor = author.substring(0, 30)
+        await global.db.write()
+        
+        reply(`✰ Metadatos de stickers actualizados:\n‧₊˚✰ *Pack:* ${pack}\n‧₊˚✰ *Autor:* ${author}`)
+    } else {
+        reply('ꕤ Formato incorrecto. Usa: pack / author')
     }
 }
 break
