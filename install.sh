@@ -1,4 +1,4 @@
-cat > install.sh << 'EOF'
+cat > install-verbose.sh << 'EOF'
 #!/data/data/com.termux/files/usr/bin/bash
 
 PINK='\033[38;5;212m'
@@ -50,76 +50,52 @@ ART
 echo -e "${CYAN}"
 echo "          DELTA WABOT INSTALLER"
 echo -e "${RESET}"
-sleep 1
-
-show_step() {
-    echo -e "${PINK}* ${CYAN}$1${RESET}"
-    sleep 0.5
-}
-
-show_progress() {
-    echo -e "${BLUE}  -> ${WHITE}$1${RESET}"
-    sleep 0.3
-}
-
-show_success() {
-    echo -e "${GREEN}  + ${WHITE}$1${RESET}"
-    sleep 0.3
-}
-
-show_downloading() {
-    echo -e "${PURPLE}  >> ${YELLOW}Descargando: ${WHITE}$1${RESET}"
-}
-
-show_extracting() {
-    echo -e "${PURPLE}  >> ${CYAN}Descomprimiendo: ${WHITE}$1${RESET}"
-}
-
-show_step "Iniciando instalacion"
 echo ""
 
-show_step "Paso 1: Actualizando Termux"
-show_progress "Actualizando paquetes"
-pkg update -y && pkg upgrade -y > /dev/null 2>&1
-show_success "Termux actualizado"
+echo "[1/6] Actualizando Termux..."
+pkg update -y && pkg upgrade -y
+echo "✓ Termux actualizado"
+echo ""
 
-show_step "Paso 2: Instalando dependencias basicas"
-show_progress "Instalando Node.js, Git y FFmpeg"
-pkg install -y nodejs-lts git ffmpeg python > /dev/null 2>&1
-show_success "Dependencias instaladas"
+echo "[2/6] Instalando dependencias..."
+pkg install -y nodejs-lts git ffmpeg python
+echo "✓ Dependencias instaladas"
+echo ""
 
-show_step "Paso 3: Obteniendo Delta WaBot"
+echo "[3/6] Obteniendo Delta WaBot..."
 if [ -d "Delta-WaBot" ]; then
-    show_progress "Eliminando version anterior"
+    echo "Eliminando version anterior..."
     rm -rf Delta-WaBot
 fi
 
-show_progress "Clonando repositorio"
-git clone https://github.com/NexyLove/Delta-WaBot.git > /dev/null 2>&1
+git clone https://github.com/NexyLove/Delta-WaBot.git
 cd Delta-WaBot
-show_success "Repositorio clonado"
+echo "✓ Repositorio clonado"
+echo ""
 
-show_step "Paso 4: Descargando modulos"
-show_downloading "node_modules desde MediaFire"
-wget -q "https://download1074.mediafire.com/wizvky3e716kk0o/hlq9d7v0c10oa4o/modulos.gz" -O modulos.gz
-show_success "Descarga completada"
+echo "[4/6] Descargando modulos..."
+echo "Descargando: node_modules desde MediaFire"
+wget "https://download1074.mediafire.com/wizvky3e716kk0o/hlq9d7v0c10oa4o/modulos.gz" -O modulos.gz
+echo "✓ Descarga completada"
+echo ""
 
-show_step "Paso 5: Descomprimiendo archivos"
-show_extracting "modulos.gz"
-gzip -d modulos.gz > /dev/null 2>&1
-show_progress "Extrayendo node_modules"
-tar -xf modulos > /dev/null 2>&1
+echo "[5/6] Descomprimiendo archivos..."
+echo "Descomprimiendo: modulos.gz"
+gzip -d modulos.gz
+echo "Extrayendo node_modules..."
+tar -xf modulos
 rm -f modulos
-show_success "Modulos extraidos"
+echo "✓ Modulos extraidos"
+echo ""
 
-show_step "Paso 6: Verificando estructura"
+echo "[6/6] Verificando estructura..."
 if [ -d "node_modules" ]; then
-    show_success "node_modules encontrado"
+    echo "✓ node_modules encontrado"
     MOD_COUNT=$(find node_modules -type d | wc -l)
-    show_progress "Encontrados $MOD_COUNT paquetes"
+    echo "✓ Encontrados $MOD_COUNT paquetes"
 else
-    show_step "Creando node_modules manualmente"
-    show_progress "Instalando dependencias basicas"
+    echo "✗ node_modules no encontrado"
+    echo "Instalando dependencias manualmente..."
     cat > package.json << 'PKG'
 {
   "name": "delta-wabot",
@@ -137,19 +113,20 @@ else
   }
 }
 PKG
-    npm install --no-optional > /dev/null 2>&1
-    show_success "Dependencias instaladas manualmente"
+    npm install --no-optional
+    echo "✓ Dependencias instaladas manualmente"
 fi
 
 echo ""
-echo -e "${PINK}"
-echo "    INSTALACION COMPLETA"
+echo "========================================"
+echo "     INSTALACION COMPLETA"
+echo "========================================"
 echo ""
-echo -e "${CYAN}    Para iniciar el bot:"
-echo -e "${WHITE}    1. cd ~/Delta-WaBot"
-echo -e "${WHITE}    2. node index.js"
+echo "Para iniciar el bot:"
+echo "1. cd ~/Delta-WaBot"
+echo "2. node index.js"
 echo ""
-echo -e "${RESET}"
 EOF
 
-chmod +x install.sh
+chmod +x install-verbose.sh
+./install-verbose.sh
